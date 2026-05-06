@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Right at Home — Tampa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fdfcf8;color:#1c1108;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes slideLft{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+@keyframes slideRgt{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(146,64,14,.5)}60%{box-shadow:0 0 0 18px rgba(146,64,14,0)}}
+@keyframes gradBG{0%,100%{background-position:0% 60%}50%{background-position:100% 40%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes ring-expand{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.6);opacity:0}}
+@keyframes glow-pulse{0%,100%{opacity:.4}50%{opacity:.8}}
+.animate{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.animate.visible{opacity:1;transform:none}
+.animate.from-left{transform:translateX(-22px)}
+.animate.from-right{transform:translateX(22px)}
+.animate.scale-in{transform:scale(.94);opacity:0}
+.animate.from-left.visible,.animate.from-right.visible,.animate.scale-in.visible{transform:none;opacity:1}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#92400e;margin-bottom:12px;display:block}
+.section-h2{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.1;margin-bottom:18px;color:#1c1108;letter-spacing:-.03em}
+.section-sub{font-size:16px;opacity:.6;max-width:540px;line-height:1.75;margin-bottom:44px;color:#1c1108}
+.accent-line{width:44px;height:3px;background:#92400e;border-radius:2px;margin-bottom:16px}
+.gradient-text{background:linear-gradient(135deg,#92400e,#1c1108);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.faq-q{width:100%;background:none;border:none;font-size:15px;font-weight:600;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:inherit;text-align:left;color:#1c1108}
+.faq-icon{font-size:20px;flex-shrink:0;transition:transform .28s ease;font-weight:400;line-height:1;color:#92400e}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:14px;line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0;opacity:.7;color:#1c1108}
+.faq-item.open .faq-a{max-height:280px;padding:0 0 20px}
+.faq-item{border-bottom:1px solid rgba(28,17,8,.1)}
+.bform{max-width:700px;margin:0 auto;background:#f5f0e4;border:1px solid rgba(28,17,8,.1);border-radius:20px;padding:48px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,.06),0 12px 32px rgba(0,0,0,.08)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.75;color:#1c1108}
+input,select,textarea{padding:12px 16px;border:1.5px solid rgba(28,17,8,.12);border-radius:10px;font-size:14px;font-family:inherit;outline:none;width:100%;transition:border-color .2s,box-shadow .2s;background:rgba(28,17,8,.03);color:#1c1108}
+input:focus,select:focus,textarea:focus{border-color:#92400e;box-shadow:0 0 0 3px rgba(146,64,14,.12)}
+.subtn{width:100%;border:none;padding:16px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit;transition:opacity .2s,transform .15s;background:#92400e;color:#fdfcf8}
+.subtn:hover{opacity:.88;transform:translateY(-1px)}
+#sticky-cta{position:fixed;bottom:0;left:0;right:0;z-index:9998;display:flex;opacity:0;transform:translateY(100%);transition:opacity .35s ease,transform .35s ease;pointer-events:none}
+#sticky-cta a{flex:1;padding:16px;text-align:center;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.mob-float{display:none;position:fixed;bottom:80px;right:20px;z-index:9997;width:56px;height:56px;border-radius:50%;background:#92400e;box-shadow:0 4px 24px rgba(146,64,14,.5);align-items:center;justify-content:center;font-size:22px;animation:pulse 3s ease-out infinite}
+.cursor-spotlight{position:fixed;width:480px;height:480px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(146,64,14,.06) 0%,transparent 70%);transform:translate(-50%,-50%);transition:opacity .5s ease;opacity:0;will-change:left,top}
+.acard,.gcard,.spcard,.edwhy,.stwy,.schip,.mwhy,.bcard,.gwhy{position:relative;overflow:hidden}
+.acard::after,.gcard::after,.spcard::after,.edwhy::after,.schip::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(146,64,14,.12) 50%,transparent 65%);transform:translateX(-150%) skewX(-15deg);transition:transform .65s ease;pointer-events:none;z-index:2}
+.acard:hover::after,.gcard:hover::after,.spcard:hover::after,.edwhy:hover::after,.schip:hover::after{transform:translateX(200%) skewX(-15deg)}
+.tilt-card{transition:transform .3s ease,box-shadow .3s ease;will-change:transform}
+@media(max-width:768px){
+  .mob-float{display:flex}
+  #sticky-cta{font-size:13px;pointer-events:auto}
+  .frow{grid-template-columns:1fr}
+  .bform{padding:28px 18px}
+  body{padding-bottom:80px}
+  .cursor-spotlight{display:none}
+}
+nav{position:sticky;top:0;z-index:999;display:flex;justify-content:space-between;align-items:center;padding:0 clamp(20px,5vw,56px);height:68px;background:rgba(253,252,248,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:3px solid #92400e}
+.nlogo{font-size:17px;font-weight:900;color:#1c1108;letter-spacing:-.03em;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nright{display:flex;gap:10px;align-items:center}
+.nbtn{background:#92400e;color:#fdfcf8;padding:9px 22px;border-radius:6px;font-weight:800;font-size:13px;transition:opacity .2s,transform .2s}
+.nbtn:hover{opacity:.88;transform:translateY(-1px)}
+.nghost{border:2px solid rgba(28,17,8,.1);color:#1c1108;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:700;transition:border-color .2s}
+.nghost:hover{border-color:#92400e;color:#92400e}
+.hero{padding:100px clamp(20px,6vw,80px) 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(146,64,14,.05) 0%,transparent 60%);pointer-events:none}
+.hero-h1{font-size:clamp(36px,7vw,78px);font-weight:900;line-height:1.06;letter-spacing:-.04em;margin-bottom:18px;color:#1c1108;animation:fadeUp .6s both}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:rgba(28,17,8,.55);max-width:580px;margin:0 auto 36px;line-height:1.75;animation:fadeUp .6s .15s both}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s .25s both}
+.hbtn-p{background:#92400e;color:#fdfcf8;padding:16px 44px;border-radius:8px;font-size:16px;font-weight:800;display:inline-block;animation:pulse 3s ease-out infinite;box-shadow:0 6px 24px rgba(146,64,14,.35);transition:opacity .2s,transform .2s}
+.hbtn-p:hover{opacity:.9;transform:translateY(-2px)}
+.hbtn-s{border:2px solid rgba(28,17,8,.1);color:#1c1108;padding:15px 36px;border-radius:8px;font-size:15px;font-weight:700;display:inline-block;transition:border-color .2s,color .2s}
+.hbtn-s:hover{border-color:#92400e;color:#92400e}
+.bcards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(28,17,8,.1);border-radius:12px;overflow:hidden}
+.bcard{border-right:1px solid rgba(28,17,8,.1);background:#fdfcf8;transition:background .25s}
+.bcard:last-child{border-right:none}
+.bcard:hover{background:#f5f0e4}
+.bwhy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.bwhy{display:flex;align-items:flex-start;gap:14px;padding:18px 0}
+.bsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+.bstep{padding:24px 16px}
+.csec{text-align:center;padding:90px 24px;background:#92400e}
+.big-phone{font-size:clamp(26px,5.5vw,56px);font-weight:900;color:#fdfcf8;display:block;margin:18px 0 10px;letter-spacing:-.035em;transition:opacity .2s}
+.big-phone:hover{opacity:.85}
+footer{background:#f5f0e4;color:rgba(28,17,8,.55);text-align:center;padding:28px 24px;font-size:12px;border-top:1px solid rgba(28,17,8,.1)}
+@media(max-width:768px){
+  .nghost{display:none}
+  .bcards{grid-template-columns:1fr;border-radius:8px}
+  .bcard{border-right:none;border-bottom:1px solid rgba(28,17,8,.1)}
+  .bwhy-grid{grid-template-columns:1fr}
+  .bsteps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nlogo">Right at Home</div>
+  <div class="nright">
+    <a href="#booking" class="nbtn">Book Now</a>
+    <a href="tel:8135144724" class="nghost">&#128222; (813) 514-4724</a>
+  </div>
+</nav>
+<div id="sticky-cta">
+  <a href="tel:8135144724" style="background:#92400e;color:#fdfcf8">&#128222; Call Now</a>
+  <a href="#booking" style="background:#f5f0e4;color:#92400e;border-top:1px solid rgba(28,17,8,.1)">&#128197; Book Appointment</a>
+</div>
+<a href="tel:8135144724" class="mob-float">&#128222;</a>
+<div class="hero">
+  <h1 class="hero-h1">Dignity at Home.</h1>
+  <p class="hero-sub">Professional senior care in Tampa. We treat every client like family.</p>
+  <div class="hero-btns">
+    <a href="#booking" class="hbtn-p">&#128197; Book Appointment</a>
+    <a href="tel:8135144724" class="hbtn-s">&#128222; (813) 514-4724</a>
+  </div>
+  <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(146,64,14,.07);border:1px solid rgba(146,64,14,.15);padding:10px 22px;border-radius:50px;margin-top:28px;animation:fadeIn .8s .5s both"><span style="color:#92400e;font-size:16px">&#11088;</span><span style="font-weight:700;font-size:14px;color:#1c1108">4.7/5</span><span style="opacity:.3">|</span><span style="font-size:13px;color:rgba(28,17,8,.55)">42 Google Reviews</span><span style="opacity:.3">|</span><span style="font-size:13px;font-weight:700;color:#92400e">&#10003; Licensed</span></div>
+</div>
+<div id="services" style="padding:80px 24px;background:#f5f0e4;border-top:1px solid rgba(28,17,8,.1);border-bottom:1px solid rgba(28,17,8,.1)">
+  <div style="max-width:1060px;margin:0 auto">
+    <span class="eyebrow animate">Services</span>
+    <h2 class="section-h2 animate">What We Offer in Tampa</h2>
+    <div class="bcards"><div class="bcard animate" style="animation-delay:0.00s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">🤝</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Personal care assistance</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Friendly, reliable companionship and social engagement for seniors in Tampa.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div><div class="bcard animate" style="animation-delay:0.06s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">🏠</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Medication reminders</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Help with bathing, dressing, and daily routines — always with dignity and respect.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div><div class="bcard animate" style="animation-delay:0.12s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">🚗</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Meal preparation</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Safe rides to appointments, grocery runs, and social visits in Tampa.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div><div class="bcard animate" style="animation-delay:0.18s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">🍽️</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Companionship visits</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Nutritious meal planning and prep tailored to dietary needs and preferences.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div><div class="bcard animate" style="animation-delay:0.24s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">👨‍👩‍👧</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Transportation services</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Regular updates and care planning with the whole family — we keep everyone informed.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div><div class="bcard animate" style="animation-delay:0.30s"><div style="height:4px;background:#92400e"></div><div style="padding:26px 22px"><span style="font-size:28px;display:block;margin-bottom:12px">🌿</span><h3 style="font-size:16px;font-weight:800;margin-bottom:8px;color:#1c1108;letter-spacing:-.01em">Light housekeeping</h3><p style="font-size:13px;line-height:1.7;color:rgba(28,17,8,.55);margin-bottom:16px">Planned or on-call relief for family caregivers. We've got things covered.</p><a href="#booking" style="font-size:12px;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #92400e;padding-bottom:2px">Book &#8594;</a></div></div></div>
+  </div>
+</div>
+<div style="padding:90px 24px" id="why">
+  <div style="max-width:920px;margin:0 auto">
+    <span class="eyebrow animate">Why Us</span>
+    <h2 class="section-h2 animate">Why Tampa Trusts Right at Home</h2>
+    <div class="bwhy-grid"><div class="bwhy animate" style="animation-delay:0.00s"><div style="width:28px;height:28px;border-radius:6px;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px">&#10003;</div><div><strong style="font-size:15px;font-weight:700;display:block;margin-bottom:4px;color:#1c1108">Background-Checked</strong><p style="font-size:13px;line-height:1.6;color:rgba(28,17,8,.55)">Every caregiver is fully screened, background-checked, and reference-verified.</p></div></div><div class="bwhy animate" style="animation-delay:0.07s"><div style="width:28px;height:28px;border-radius:6px;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px">&#10003;</div><div><strong style="font-size:15px;font-weight:700;display:block;margin-bottom:4px;color:#1c1108">Family Communication</strong><p style="font-size:13px;line-height:1.6;color:rgba(28,17,8,.55)">Regular updates so the whole family stays informed and at peace.</p></div></div><div class="bwhy animate" style="animation-delay:0.14s"><div style="width:28px;height:28px;border-radius:6px;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px">&#10003;</div><div><strong style="font-size:15px;font-weight:700;display:block;margin-bottom:4px;color:#1c1108">Flexible Hours</strong><p style="font-size:13px;line-height:1.6;color:rgba(28,17,8,.55)">Part-time, full-time, overnight, or on-call — we match your schedule.</p></div></div><div class="bwhy animate" style="animation-delay:0.21s"><div style="width:28px;height:28px;border-radius:6px;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px">&#10003;</div><div><strong style="font-size:15px;font-weight:700;display:block;margin-bottom:4px;color:#1c1108">Dignity-First Care</strong><p style="font-size:13px;line-height:1.6;color:rgba(28,17,8,.55)">Every interaction is guided by respect, patience, and genuine compassion.</p></div></div></div>
+  </div>
+</div>
+<div style="padding:90px 24px;background:#ece4d0" id="process">
+  <div style="max-width:1000px;margin:0 auto;text-align:center">
+    <span class="eyebrow animate">The Process</span>
+    <h2 class="section-h2 animate">How It Works</h2>
+    <div class="bsteps"><div class="bstep animate" style="animation-delay:0.00s"><div style="width:56px;height:56px;border-radius:50%;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 14px">1</div><h3 style="font-size:15px;font-weight:700;margin:0 0 6px;color:#1c1108">Free Care Consultation</h3><p style="font-size:13px;line-height:1.65;color:rgba(28,17,8,.55)">We meet with your family to understand needs, preferences, and goals.</p></div><div class="bstep animate" style="animation-delay:0.10s"><div style="width:56px;height:56px;border-radius:50%;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 14px">2</div><h3 style="font-size:15px;font-weight:700;margin:0 0 6px;color:#1c1108">Matched with a Caregiver</h3><p style="font-size:13px;line-height:1.65;color:rgba(28,17,8,.55)">We place a compatible, fully vetted caregiver in Tampa who fits your loved one.</p></div><div class="bstep animate" style="animation-delay:0.20s"><div style="width:56px;height:56px;border-radius:50%;background:#92400e;color:#fdfcf8;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 14px">3</div><h3 style="font-size:15px;font-weight:700;margin:0 0 6px;color:#1c1108">Ongoing Support</h3><p style="font-size:13px;line-height:1.65;color:rgba(28,17,8,.55)">Regular family updates, flexible scheduling, and adjustments as needs evolve.</p></div></div>
+  </div>
+</div>
+<section style="background:#f5f0e4;padding:90px 24px;overflow:hidden" id="area">
+<div style="max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+  <div>
+    <span class="eyebrow animate">Service Coverage</span>
+    <h2 class="section-h2 animate">Proudly Serving<br><span style="color:#92400e">Tampa</span></h2>
+    <p class="animate" style="font-size:15px;opacity:.62;line-height:1.8;color:#1c1108;margin-bottom:28px">Professional, on-time service across Tampa and all surrounding communities. Local experts — not a call center.</p>
+    <div class="animate" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px"><span style="display:inline-block;padding:6px 14px;background:rgba(146,64,14,.1);border:1px solid rgba(146,64,14,.2);border-radius:20px;font-size:12px;font-weight:600;color:#92400e;margin:4px">Tampa</span><span style="display:inline-block;padding:6px 14px;background:rgba(146,64,14,.1);border:1px solid rgba(146,64,14,.2);border-radius:20px;font-size:12px;font-weight:600;color:#92400e;margin:4px">St. Petersburg</span><span style="display:inline-block;padding:6px 14px;background:rgba(146,64,14,.1);border:1px solid rgba(146,64,14,.2);border-radius:20px;font-size:12px;font-weight:600;color:#92400e;margin:4px">Clearwater</span><span style="display:inline-block;padding:6px 14px;background:rgba(146,64,14,.1);border:1px solid rgba(146,64,14,.2);border-radius:20px;font-size:12px;font-weight:600;color:#92400e;margin:4px">Brandon</span><span style="display:inline-block;padding:6px 14px;background:rgba(146,64,14,.1);border:1px solid rgba(146,64,14,.2);border-radius:20px;font-size:12px;font-weight:600;color:#92400e;margin:4px">Wesley Chapel</span></div>
+    
+  </div>
+  <div class="animate scale-in" style="display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:220px;height:220px">
+      <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid #92400e;animation:ring-expand 3s ease-out infinite;opacity:.7"></div>
+      <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid #92400e;animation:ring-expand 3s ease-out 1s infinite;opacity:.7"></div>
+      <div style="position:absolute;inset:0;border-radius:50%;border:1.5px solid #92400e;animation:ring-expand 3s ease-out 2s infinite;opacity:.7"></div>
+      <div style="position:absolute;inset:30px;border-radius:50%;background:rgba(146,64,14,.06);border:1.5px solid rgba(146,64,14,.2)"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+        <div style="font-size:32px;animation:float 4s ease-in-out infinite">&#128205;</div>
+        <div style="font-size:14px;font-weight:800;color:#92400e;letter-spacing:-.01em;text-align:center;max-width:120px;line-height:1.2">Tampa</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.45;color:#1c1108">Service Area</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<style>
+@keyframes ring-expand{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.8);opacity:0}}
+</style>
+<section style="background:#fdfcf8;padding:90px 24px" id="reviews"><div style="max-width:1000px;margin:0 auto"><p class="eyebrow animate" style="color:#92400e">What Customers Say</p><h2 class="section-h2 animate" style="color:#1c1108">Google Reviews</h2><div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap" class="animate"><span style="color:#92400e;font-size:22px;letter-spacing:2px">★★★★★</span><span style="font-size:18px;font-weight:700;color:#1c1108">4.7/5</span><span style="opacity:.4">·</span><span style="color:rgba(28,17,8,.72)">42 reviews</span><a href="https://www.google.com/search?q=Right+at+Home" target="_blank" style="color:#92400e;font-size:13px;border:1px solid #92400e;padding:4px 14px;border-radius:20px;margin-left:auto">See on Google &#8599;</a></div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:48px" class="animate"><span style="background:rgba(146,64,14,.08);border:1px solid rgba(146,64,14,.15);padding:4px 12px;border-radius:20px;font-size:12px;color:#92400e">compassionate staff</span> <span style="background:rgba(146,64,14,.08);border:1px solid rgba(146,64,14,.15);padding:4px 12px;border-radius:20px;font-size:12px;color:#92400e">reliable and consistent</span> <span style="background:rgba(146,64,14,.08);border:1px solid rgba(146,64,14,.15);padding:4px 12px;border-radius:20px;font-size:12px;color:#92400e">great communication</span> <span style="background:rgba(146,64,14,.08);border:1px solid rgba(146,64,14,.15);padding:4px 12px;border-radius:20px;font-size:12px;color:#92400e">peace of mind</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px"><div class="rcard animate" style="background:#f5f0e4;border:1px solid rgba(28,17,8,.1);border-radius:16px;padding:28px 24px"><div style="margin-bottom:12px"><span style="color:#92400e;font-size:22px;letter-spacing:2px">★★★★★</span></div><p style="font-size:14px;line-height:1.75;color:rgba(28,17,8,.72);margin-bottom:18px">&#8220;Right at Home in Plant City is amazing. They are taking great care of my mother. Kay is great with my mom, she is loving and careful with her.  The office is always calling to keep me updated and are so polite and friendly.  I would recomme...&#8221;</p><div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#92400e;opacity:.7">VIA GOOGLE REVIEWS</div></div><div class="rcard animate" style="background:#f5f0e4;border:1px solid rgba(28,17,8,.1);border-radius:16px;padding:28px 24px"><div style="margin-bottom:12px"><span style="color:#92400e;font-size:22px;letter-spacing:2px">★★★★★</span></div><p style="font-size:14px;line-height:1.75;color:rgba(28,17,8,.72);margin-bottom:18px">&#8220;I really love the care and attention that is given in selecting the caretaker for my mom. I feel like they take into consideration her medical status her personality and her needs before sending someone over. The staff is responsive and att...&#8221;</p><div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#92400e;opacity:.7">VIA GOOGLE REVIEWS</div></div><div class="rcard animate" style="background:#f5f0e4;border:1px solid rgba(28,17,8,.1);border-radius:16px;padding:28px 24px"><div style="margin-bottom:12px"><span style="color:#92400e;font-size:22px;letter-spacing:2px">★★★★★</span></div><p style="font-size:14px;line-height:1.75;color:rgba(28,17,8,.72);margin-bottom:18px">&#8220;Exceeded Expectations!  The kind ladies of the Tampa &amp; Sarasota offices showed true heartful caring, going above &amp; beyond to assist during our family emergency.  Apologies if I have names wrong:  Krista, Shantell &amp; Eileen ... Many, many tha...&#8221;</p><div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#92400e;opacity:.7">VIA GOOGLE REVIEWS</div></div></div></div></section>
+<div id="faq" style="padding:90px 24px;background:#f5f0e4;border-top:1px solid rgba(28,17,8,.1)">
+  <div style="max-width:680px;margin:0 auto">
+    <span class="eyebrow animate">FAQ</span>
+    <h2 class="section-h2 animate">Common Questions</h2>
+    <div class="faq-item animate" style="animation-delay:0.00s;border-bottom:1px solid rgba(28,17,8,.1)"><button class="faq-q" onclick="gFaq(this)" style="color:#1c1108"><span>How do I find the right caregiver?</span><span class="faq-icon" style="color:#92400e">+</span></button><div class="faq-a" style="color:#1c1108">We conduct a thorough intake to understand your loved one's needs, preferences, and personality. Then we match accordingly.</div></div><div class="faq-item animate" style="animation-delay:0.06s;border-bottom:1px solid rgba(28,17,8,.1)"><button class="faq-q" onclick="gFaq(this)" style="color:#1c1108"><span>What if my loved one doesn't connect with the caregiver?</span><span class="faq-icon" style="color:#92400e">+</span></button><div class="faq-a" style="color:#1c1108">We take compatibility seriously. If the match isn't working, we'll make a change promptly — no questions asked.</div></div><div class="faq-item animate" style="animation-delay:0.12s;border-bottom:1px solid rgba(28,17,8,.1)"><button class="faq-q" onclick="gFaq(this)" style="color:#1c1108"><span>Are caregivers background-checked?</span><span class="faq-icon" style="color:#92400e">+</span></button><div class="faq-a" style="color:#1c1108">Yes. Every caregiver undergoes a comprehensive background check, reference verification, and is fully bonded and insured.</div></div><div class="faq-item animate" style="animation-delay:0.18s;border-bottom:1px solid rgba(28,17,8,.1)"><button class="faq-q" onclick="gFaq(this)" style="color:#1c1108"><span>Can care hours be adjusted?</span><span class="faq-icon" style="color:#92400e">+</span></button><div class="faq-a" style="color:#1c1108">Absolutely. We offer flexible scheduling — part-time, full-time, overnight, and on-call. We adjust as needs change.</div></div><div class="faq-item animate" style="animation-delay:0.24s;border-bottom:1px solid rgba(28,17,8,.1)"><button class="faq-q" onclick="gFaq(this)" style="color:#1c1108"><span>How do you keep the family informed?</span><span class="faq-icon" style="color:#92400e">+</span></button><div class="faq-a" style="color:#1c1108">We provide regular updates and maintain an open line of communication with family members throughout the caregiving relationship.</div></div>
+  </div>
+</div>
+<div id="booking" style="padding:90px 24px">
+  <div style="max-width:780px;margin:0 auto;text-align:center">
+    <span class="eyebrow animate">Get Started</span>
+    <h2 class="section-h2 animate">Book Your Appointment</h2>
+    <p class="animate section-sub" style="margin:0 auto 44px">We confirm within 2 hours. Prefer to call? <a href="tel:8135144724" style="color:#92400e">(813) 514-4724</a></p>
+    <div class="bform animate">
+      <div class="frow">
+        <div class="fg"><label style="color:#92400e">Your Name</label><input type="text" id="fn" placeholder="John Smith" required style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></div>
+        <div class="fg"><label style="color:#92400e">Phone Number</label><input type="tel" id="fp" placeholder="(555) 000-0000" required style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></div>
+      </div>
+      <div class="fg"><label style="color:#92400e">Email</label><input type="email" id="fe" placeholder="you@email.com" style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></div>
+      <div class="fg"><label style="color:#92400e">Service Needed</label>
+        <select id="fs" style="border-color:rgba(28,17,8,.15);background:#f5f0e4;color:#1c1108">
+          <option value="">Select a service...</option><option>Personal care assistance</option><option>Medication reminders</option><option>Meal preparation</option><option>Companionship visits</option><option>Transportation services</option><option>Light housekeeping</option><option>Not sure — need consultation</option>
+        </select>
+      </div>
+      <div class="frow">
+        <div class="fg"><label style="color:#92400e">Preferred Date</label><input type="date" id="fd" style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></div>
+        <div class="fg"><label style="color:#92400e">Preferred Time</label><input type="time" id="ft" style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></div>
+      </div>
+      <div class="fg"><label style="color:#92400e">Notes</label><textarea id="fn2" rows="3" placeholder="Location, details, or anything else..." style="border-color:rgba(28,17,8,.15);background:rgba(28,17,8,.04);color:#1c1108"></textarea></div>
+      <button class="subtn" onclick="gSubmit()" style="background:#92400e;color:#fdfcf8">Request Appointment &#8594;</button>
+      <p style="margin-top:14px;font-size:12px;opacity:.45;text-align:center">&#10003; Confirmation within 2 hours &nbsp;&#183;&nbsp; No payment required</p>
+    </div>
+  </div>
+</div>
+<div class="csec" id="contact">
+  <span class="eyebrow" style="color:rgba(253,252,248,.6)">Call or Text</span>
+  <h2 class="section-h2" style="color:#fdfcf8">Reach Us Now</h2>
+  <a href="tel:8135144724" class="big-phone">(813) 514-4724</a>
+  <p style="font-size:13px;color:rgba(253,252,248,.75);margin-top:14px">Serving Tampa &middot; St. Petersburg &middot; Clearwater &middot; Brandon &middot; Wesley Chapel</p>
+</div>
+<footer>&copy; 2026 Right at Home &nbsp;&#183;&nbsp; Tampa<br><span style="opacity:.6">Sample site prepared by GDI Web Solutions &nbsp;&#183;&nbsp; tampahomecare.com</span></footer>
+<script>
+(()=>{
+// 1. Scroll progress bar
+const pb=document.createElement('div');
+pb.style.cssText='position:fixed;top:0;left:0;height:3px;background:#92400e;z-index:10000;width:0;transition:width .1s linear;pointer-events:none;border-radius:0 2px 2px 0';
+document.body.appendChild(pb);
+// 2. Cursor spotlight
+const cs=document.createElement('div');
+cs.className='cursor-spotlight';
+document.body.appendChild(cs);
+let csOn=false;
+document.addEventListener('mousemove',(e)=>{
+  cs.style.left=e.clientX+'px';cs.style.top=e.clientY+'px';
+  if(!csOn){cs.style.opacity='1';csOn=true;}
+},{passive:true});
+document.addEventListener('mouseleave',()=>{cs.style.opacity='0';csOn=false;});
+// 3. Sticky CTA + progress
+const sc=document.getElementById('sticky-cta');
+const hero=document.querySelector('.hero,.hero-wrap');
+let lastSc=false;
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  pb.style.width=Math.min(pct,100)+'%';
+  if(sc&&hero){
+    const past=window.scrollY>hero.offsetHeight*.65;
+    if(past!==lastSc){
+      sc.style.opacity=past?'1':'0';
+      sc.style.transform=past?'translateY(0)':'translateY(100%)';
+      sc.style.pointerEvents=past?'auto':'none';
+      lastSc=past;
+    }
+  }
+},{passive:true});
+// 4. Stagger IntersectionObserver
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.08,rootMargin:'0px 0px -24px 0px'});
+document.querySelectorAll('.animate').forEach((el,idx)=>{
+  if(!el.dataset.delay){
+    const sibs=el.parentElement?Array.from(el.parentElement.querySelectorAll(':scope>.animate')):[];
+    const si=sibs.indexOf(el);
+    if(si>0&&!el.style.transitionDelay)el.style.transitionDelay=(si*.07)+'s';
+  }
+  obs.observe(el);
+});
+// 5. Count-up
+function cUp(el){
+  const t=parseInt(el.dataset.target);if(!t||t<2)return;
+  const step=t/(1800/16);let c=0;
+  const iv=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.round(c).toLocaleString();if(c>=t)clearInterval(iv);},16);
+}
+document.querySelectorAll('[data-target]').forEach(el=>{
+  const io=new IntersectionObserver(en=>{if(en[0].isIntersecting){cUp(el);io.disconnect();}});io.observe(el);
+});
+// 6. FAQ
+window.gFaq=btn=>{
+  const it=btn.parentElement;const was=it.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!was)it.classList.add('open');
+};
+// 7. Magnetic CTAs (desktop only)
+if(window.innerWidth>768){
+  document.querySelectorAll('.hbtn-p,.nbtn,.mag-btn').forEach(btn=>{
+    btn.addEventListener('mousemove',(e)=>{
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*.2;
+      const y=(e.clientY-r.top-r.height/2)*.2;
+      btn.style.transform=`translate(${x}px,${y}px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+  });
+  // 8. Card tilt
+  document.querySelectorAll('.tilt-card').forEach(card=>{
+    card.addEventListener('mousemove',(e)=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(700px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateZ(6px) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
+  });
+}
+// 9. Parallax
+window.addEventListener('scroll',()=>{
+  const sy=window.scrollY;
+  document.querySelectorAll('[data-parallax]').forEach(el=>{
+    if(!el.closest('.hero'))return;
+    el.style.transform=`translateY(${sy*parseFloat(el.dataset.parallax||'.25')}px)`;
+  });
+},{passive:true});
+// 10. Form submit
+window.gSubmit=()=>{
+  var nm=document.getElementById('fn')?.value||'',
+      ph=document.getElementById('fp')?.value||'',
+      svc=document.getElementById('fs')?.value||'',
+      dt=document.getElementById('fd')?.value||'',
+      tm=document.getElementById('ft')?.value||'',
+      nt=document.getElementById('fn2')?.value||'';
+  if(!nm||!ph||!svc){alert('Please fill in your name, phone, and service needed.');return;}
+  var body='New Booking%0AName: '+encodeURIComponent(nm)+'%0APhone: '+encodeURIComponent(ph)+'%0AService: '+encodeURIComponent(svc)+'%0ADate: '+encodeURIComponent(dt)+'%0ATime: '+encodeURIComponent(tm)+'%0ANotes: '+encodeURIComponent(nt);
+  window.location.href='tel:8135144724';
+  var bf=document.querySelector('.bform');
+  if(bf)bf.innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:56px;margin-bottom:20px">&#10003;</div><h3 style="font-size:22px;margin-bottom:12px;color:#92400e">Request Sent!</h3><p style="opacity:.6">We'll confirm within 2 hours. Call (813) 514-4724 for anything urgent.</p></div>';
+};
+})();
+</script>
+</body></html>
